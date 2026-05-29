@@ -6,7 +6,7 @@
 - SAP MM material document / movement list exports used in sustainability extracts
 - Common column names: `WERKS` (plant), `MATNR` (material), `MAKTX` (description), `MENGE` (quantity), `MEINS` (unit), `BUDAT` (posting date)
 - Export channels considered: IDoc, OData, BAPI, flat file
-- **Chose flat semicolon CSV** because it is the lowest-friction handoff from client IT in early onboarding
+- **Chose flat CSV upload** (semicolon or comma; parser auto-detects) because it is the lowest-friction handoff from client IT in early onboarding
 
 ### What we learned
 - Units mix liters, gallons, pieces (`ST`), and sometimes mass
@@ -16,7 +16,8 @@
 
 ### Sample file: `sample_data/sap_sample.csv`
 - Includes diesel, heating oil, office paper, packaging, and a **zero-quantity gasoline** row to trigger validation failure
-- Uses `,` decimal separator in quantities (European style)
+- Comma-delimited for readability in GitHub/docs; production SAP exports often use `;` when amounts use European decimals
+- Uses `,` decimal separator in quantities (European style, quoted in CSV where needed)
 - German-style dates and EUR amounts
 
 ### Would break in production

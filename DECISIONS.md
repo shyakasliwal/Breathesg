@@ -14,9 +14,9 @@
 
 **Researched:** SAP MM movement / material document style exports (flat CSV with `WERKS`, `MATNR`, `MENGE`, `MEINS`, `BUDAT`), not full IDoc orchestration.
 
-**Chosen mechanism:** Semicolon-delimited **file upload** of a flat export.
+**Chosen mechanism:** **File upload** of a flat export (semicolon or comma; auto-detected).
 
-**Why:** Enterprise SAP teams most often give consultants a scheduled flat file from a report variant or PI/PO job before API access is approved. Upload matches week-1 onboarding reality.
+**Why:** Enterprise SAP teams most often give consultants a scheduled flat file from a report variant or PI/PO job before API access is approved. Upload matches week-1 onboarding reality. Semicolon is common when European decimal commas would break comma-delimited files.
 
 **Subset handled**
 - One plant code per row

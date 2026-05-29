@@ -4,6 +4,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -29,7 +30,11 @@ def _membership(user):
 
 
 class MeView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
+        if not request.user.is_authenticated:
+            return Response({"detail": "Not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
         membership = _membership(request.user)
         if not membership:
             return Response({"detail": "No organization membership"}, status=403)

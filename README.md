@@ -47,6 +47,13 @@ Frontend expects API at `http://127.0.0.1:8000/api`.
 4. Set `VITE_API_URL` on the static UI service to your API URL (e.g. `https://breathe-esg-api.onrender.com/api`).
 5. Share live UI URL + credentials in your submission email.
 
+## Deploy (Vercel UI + Render API)
+1. Deploy the API on Render (`DEBUG=false`).
+2. Set on the API service: `FRONTEND_URL=https://your-app.vercel.app` (or `CORS_ALLOWED_ORIGINS` with the same value).
+3. Deploy the frontend on Vercel with `frontend` as the root directory. Commit `frontend/vercel.json` so `/api/*` proxies to your Render API.
+4. **Do not** set `VITE_API_URL` to the Render URL on Vercel (cross-origin session cookies are blocked). Leave it unset so the app uses `/api` on the same origin.
+5. Redeploy both services after env changes.
+
 ## Submission checklist
 - GitHub repo link (share with Breathe reviewers)
 - Live deployed URL

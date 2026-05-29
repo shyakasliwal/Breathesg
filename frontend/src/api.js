@@ -1,7 +1,27 @@
-// In dev, Vite proxies /api → Django (same origin, CSRF cookie works).
-// In production, set VITE_API_URL to your deployed API base (e.g. https://your-api.onrender.com/api).
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
+// In dev, Vite proxies /api → Django (same origin, session + CSRF cookies work).
+// On Vercel, use same-origin /api (see vercel.json rewrite). Do not point VITE_API_URL at
+// another host — browsers block third-party session cookies.
+function resolveApiBase() {
+  const configured = (import.meta.env.VITE_API_URL || "").trim();
+  if (!configured) return "/api";
+  if (configured.startsWith("/")) {
+    return configured.replace(/\/$/, "") || "/api";
+  }
+  try {
+    const apiOrigin = new URL(configured).origin;
+    if (typeof window !== "undefined" && apiOrigin !== window.location.origin) {
+      console.warn(
+        "[api] VITE_API_URL is cross-origin; using /api via same-origin proxy instead."
+      );
+      return "/api";
+    }
+    return configured.replace(/\/$/, "");
+  } catch {
+    return "/api";
+  }
+}
 
+const API_BASE = resolveApiBase();
 function readCookie(name) {
   return document.cookie
     .split("; ")

@@ -51,8 +51,9 @@ Frontend expects API at `http://127.0.0.1:8000/api`.
 1. Deploy the API on Render (`DEBUG=false`).
 2. Set on the API service: `FRONTEND_URL=https://your-app.vercel.app` (or `CORS_ALLOWED_ORIGINS` with the same value).
 3. Deploy the frontend on Vercel with `frontend` as the root directory. Commit `frontend/vercel.json` so `/api/*` proxies to your Render API.
-4. **Do not** set `VITE_API_URL` to the Render URL on Vercel (cross-origin session cookies are blocked). Leave it unset so the app uses `/api` on the same origin.
-5. Redeploy both services after env changes.
+4. **Vercel env `VITE_API_URL`:** leave it **empty** (delete the variable). Do **not** use the Render URL. Optional: set to `/api` only.
+5. **Vercel Root Directory:** either leave as repo root (uses `/vercel.json`) **or** set to `frontend` (uses `frontend/vercel.json`). Both include the `/api` proxy rewrite.
+6. Redeploy Vercel after any env or config change (Vite bakes env vars at build time).
 
 ## Submission checklist
 - GitHub repo link (share with Breathe reviewers)

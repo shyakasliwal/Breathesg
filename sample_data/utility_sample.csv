@@ -1,0 +1,5 @@
+account_number,meter_id,site_code,billing_period_start,billing_period_end,usage,usage_unit,tariff,utility_name,total_charge,currency
+US-ELEC-44102,MTR-90811,PLT-SFO-01,2025-02-18,2025-03-19,182340,kWh,GS-TOU-Commercial,Pacific Grid Partners,24110.55,USD
+US-ELEC-44102,MTR-90811,PLT-SFO-01,2025-03-20,2025-04-22,176890,kWh,GS-TOU-Commercial,Pacific Grid Partners,23680.10,USD
+US-ELEC-55201,MTR-77102,PLT-DAL-02,2025-03-01,2025-03-31,920450,kWh,Flat-Industrial,Texas Energy Co,612000.00,USD
+DE-ELEC-88310,MTR-22001,PLT-FRA-01,2025-01-11,2025-02-14,68420,kWh,HT/NT,E.ON Business,11240.00,EUR

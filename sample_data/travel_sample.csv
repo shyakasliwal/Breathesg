@@ -1,0 +1,5 @@
+report_id,employee_id,expense_type,start_date,end_date,origin,destination,distance_km,amount,currency,vendor,description
+EXP-2025-1182,E10293,Airfare,2025-03-04,2025-03-06,DEL,BOM,,428.00,USD,Air India,Client workshop Mumbai
+EXP-2025-1204,E10411,Hotel,2025-03-04,2025-03-06,,, ,612.40,USD,Marriott,SFO downtown - 2 nights
+EXP-2025-1210,E10177,Car rental,2025-03-12,2025-03-14,,,186,210.00,USD,Hertz,SEA airport pickup
+EXP-2025-1222,E10502,Airfare,2025-03-20,2025-03-24,LHR,JFK,,23840.00,USD,British Airways,Leadership offsite

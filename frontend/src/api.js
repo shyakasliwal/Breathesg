@@ -30,7 +30,17 @@ function readCookie(name) {
 }
 
 async function ensureCsrf() {
-  const response = await fetch(`${API_BASE}/auth/csrf/`, { credentials: "include" });
+  let response;
+  try {
+    response = await fetch(`${API_BASE}/auth/csrf/`, { credentials: "include" });
+  } catch {
+    throw new Error(
+      "Cannot reach API. Redeploy Vercel after push and open /api/auth/csrf/ on your site URL."
+    );
+  }
+  if (!response.ok) {
+    throw new Error(`API error ${response.status} on ${API_BASE}/auth/csrf/`);
+  }
   const data = await response.json().catch(() => ({}));
   return data.csrfToken || readCookie("csrftoken") || "";
 }
@@ -49,11 +59,16 @@ async function request(path, options = {}) {
     headers["X-CSRFToken"] = token;
   }
 
-  const response = await fetch(`${API_BASE}${path}`, {
-    credentials: "include",
-    headers,
-    ...options,
-  });
+  let response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      credentials: "include",
+      headers,
+      ...options,
+    });
+  } catch {
+    throw new Error("Cannot reach API — check Vercel /api proxy and Render is running.");
+  }
 
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {

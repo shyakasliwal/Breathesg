@@ -3,11 +3,5 @@
     "env": {
       "VITE_API_URL": "/api"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://breathesg-vafh.onrender.com/api/:path*"
-    }
-  ]
+  }
 }

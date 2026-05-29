@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "./api";
 
+function isValidSession(data) {
+  return Boolean(data?.user?.email);
+}
+
 const FILTERS = [
   { id: "all", label: "All rows" },
   { id: "pending", label: "Pending review", query: "?review_status=pending" },
@@ -33,6 +37,10 @@ export default function App() {
     api
       .me()
       .then((data) => {
+        if (!isValidSession(data)) {
+          setSession(null);
+          return;
+        }
         setSession(data);
         return refresh();
       })
@@ -50,6 +58,9 @@ export default function App() {
     try {
       await api.login(email, password);
       const me = await api.me();
+      if (!isValidSession(me)) {
+        throw new Error("Login succeeded but session was not established.");
+      }
       setSession(me);
       await refresh();
     } catch (err) {
@@ -88,7 +99,7 @@ export default function App() {
     }
   }
 
-  if (!session) {
+  if (!isValidSession(session)) {
     return (
       <div className="page center">
         <form className="card login" onSubmit={handleLogin}>
@@ -115,7 +126,7 @@ export default function App() {
         <div>
           <h1>Review dashboard</h1>
           <p>
-            {session.organization?.name} · {session.user.email}
+            {session.organization?.name} · {session.user?.email}
           </p>
         </div>
         <button

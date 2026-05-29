@@ -70,6 +70,12 @@ async function request(path, options = {}) {
     throw new Error("Cannot reach API — check Vercel /api proxy and Render is running.");
   }
 
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      "API returned HTML instead of JSON — /api proxy is not active on Vercel. Redeploy from latest main."
+    );
+  }
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     const detail = data.detail || data.non_field_errors?.[0] || "Request failed";

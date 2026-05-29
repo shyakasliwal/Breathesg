@@ -8,10 +8,6 @@
     {
       "source": "/api/:path*",
       "destination": "https://breathesg-vafh.onrender.com/api/:path*"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
